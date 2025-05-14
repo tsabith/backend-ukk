@@ -26,10 +26,10 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            //  ->authMiddleware([
-            //     Authenticate::class,
-            //     AdminAccess::class,
-            // ])
+             ->authMiddleware([
+                Authenticate::class,
+                AdminAccess::class,
+            ])
             ->path('admin')
             ->login()
             ->colors([

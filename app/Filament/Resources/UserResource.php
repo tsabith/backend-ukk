@@ -33,7 +33,7 @@ class UserResource extends Resource
                     ->label('Email')
                     ->email()
                     ->required()
-                    ->unique(table: User::class, ignorable: fn (?User $record): ?SoftDeletingScope => $record),
+                    ->unique(table: 'users', ignorable: fn ($record) => $record),
                 
                 Forms\Components\Select::make('roles')
                     ->relationship('roles', 'name')

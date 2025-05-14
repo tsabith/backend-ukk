@@ -34,7 +34,12 @@ class SiswaResource extends Resource
                 Forms\Components\TextInput::make('kontak'),
                 Forms\Components\TextInput::make('email'),
                 Forms\Components\FileUpload::make('foto'),
-                Forms\Components\Toggle::make('status_lapor_pkl'),
+                Forms\Components\Toggle::make('status_lapor_pkl')
+                    ->label('Sudah PKL?'),
+                Forms\Components\Toggle::make('is_approved')
+                    ->label('Disetujui Admin?')
+                    ->default(false)
+                    ->disabled(fn () => !auth()->user()?->hasRole('super_admin') && !auth()->user()?->hasRole('guru')),
             ]);
     }
 
@@ -48,9 +53,13 @@ class SiswaResource extends Resource
                 IconColumn::make('status_lapor_pkl')
                     ->label('Status PKL')
                     ->boolean(),
+                IconColumn::make('is_approved')
+                    ->label('Disetujui')
+                    ->boolean(),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('status_lapor_pkl')->label('Sudah PKL?'),
+                Tables\Filters\TernaryFilter::make('is_approved')->label('Sudah Disetujui?'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
